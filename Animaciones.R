@@ -30,3 +30,5 @@ grafico <- grafico +
             labs(title = "Año: {frame_time}")
 
 grafico
+
+animate(grafico, renderer = gifski_renderer("animacion.gif"))
