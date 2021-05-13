@@ -1,11 +1,8 @@
-install.packages("ggplot2")
-
 # CARGAR LIBRERÍA PARA GRAFICAR
 library(ggplot2)
 
-# BORRAR TODOS LOS 
+# BORRAR TODAS LAS VARIABLES EXISTENTES 
 rm(list = ls())
-install.packages("gapminder")
 
 # CARGAR LIBRERÍA CON DATOS
 library(gapminder)
@@ -17,7 +14,19 @@ datos <- gapminder
 grafico <- ggplot(
             datos, 
             aes(x = gdpPercap, y = lifeExp, colour = continent)
-            ) + geom_point()
+            ) + geom_point(aes(size=pop), alpha=0.8) +
+            theme(legend.position = "bottom") + guides(size = "none") +
+            labs(x = "PIB per capita", y = "Esperanza de Vida", col = "")
 
 # MOSTRAR GRÁFICO
+grafico
+
+# CARGAR LIBRER[IAS PARA ANIMAR LA GRAFICA
+library(gganimate)
+library(gifski)
+
+grafico <- grafico + 
+            transition_time(year) +
+            labs(title = "Año: {frame_time}")
+
 grafico
